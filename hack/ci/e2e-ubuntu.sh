@@ -26,9 +26,11 @@ export E2E_TEST_SECCOMP=false
 # e2e-seccomp-profile job does for the base profiles and e2e-debian for the
 # AppArmor recording. The suite's BPF recorder tests do not work here: the
 # multi container deployments of the profile merging tests never get recorded
-# (amd64) or crash loop while recorded (arm64). The test case of the BPF log
-# enricher source has its own switch, E2E_TEST_BPF_LOG_ENRICHER.
+# (amd64) or crash loop while recorded (arm64).
 export E2E_TEST_BPF_RECORDER=false
+# The BPF source of the log enricher has its kprobe on aa_audit, which needs
+# AppArmor on the node, as the Ubuntu runners have it.
+export E2E_TEST_BPF_LOG_ENRICHER=true
 export E2E_TEST_FLAKY_TESTS_ONLY=${E2E_TEST_FLAKY_TESTS_ONLY:-false}
 
 # The suite deploys copies of the tracked manifests below build/e2e-manifests
